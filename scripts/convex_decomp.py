@@ -88,7 +88,7 @@ class Hyperplane:
     
 # 多边形
 class Polygon:
-    def __init__(self, hyper_planes: list[Hyperplane]) -> None:
+    def __init__(self, hyper_planes) -> None:
         self.hyper_planes_ = hyper_planes
 
     # 判断点是否在多边形内
@@ -142,7 +142,7 @@ class Polygon:
         return inter_points
 
     # 进行点排序
-    def pointSort(self, points: list[np.array]):
+    def pointSort(self, points):
         # 计算这些点的中点
         middle_point = np.array([np.mean([p[0] for p in points]), np.mean([p[1] for p in points])])
         # 计算点与中点的角度
@@ -162,7 +162,7 @@ class ConvexDecomp:
         self.consider_range_ = consider_range
     
     # 根据输入路径对空间进行凸分解
-    def decomp(self, line_points: list[np.array], obs_points: list[np.array], visualize=True):
+    def decomp(self, line_points, obs_points, visualize=True):
         # 最终结果
         decomp_polygons = list()
         # 构建输入障碍物点的kdtree
@@ -237,7 +237,7 @@ class ConvexDecomp:
         return polygon
 
     # 得到初始椭圆
-    def findEllipse(self, pf: np.array, pr: np.array, obs_points: list[np.array]) -> Ellipse:
+    def findEllipse(self, pf: np.array, pr: np.array, obs_points) -> Ellipse:
         # 计算长轴
         long_axis_value = np.linalg.norm(pr - pf) / 2
         axes = np.array([long_axis_value, long_axis_value])
@@ -265,7 +265,7 @@ class ConvexDecomp:
         return ellipse
 
     # 进行多面体的构建
-    def findPolygon(self, ellipse: Ellipse, init_polygon: Polygon, obs_points: list[np.array]) -> Polygon:
+    def findPolygon(self, ellipse: Ellipse, init_polygon: Polygon, obs_points) -> Polygon:
         # 多面体由多个超平面构成
         polygon_planes = copy.deepcopy(init_polygon.hyper_planes_)
         # 初始化范围超平面

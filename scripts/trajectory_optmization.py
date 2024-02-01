@@ -93,7 +93,7 @@ class TrajectoryOptimizer:
         self.freedom_ = self.degree_ + 1
 
     # 进行优化
-    def optimize(self, start_state: np.array, end_state: np.array, line_points: list[np.array], polygons: list[Polygon]):
+    def optimize(self, start_state: np.array, end_state: np.array, line_points, polygons):
         assert(len(line_points) == len(polygons) + 1)
         # 得到分段数量
         segment_num = len(polygons)
@@ -130,7 +130,7 @@ class TrajectoryOptimizer:
         return piece_wise_trajectory
     
     # 优化迭代
-    def optimizeIter(self, start_state: np.array, end_state: np.array, polygons: list[Polygon], time_allocations: list, segment_num):
+    def optimizeIter(self, start_state: np.array, end_state: np.array, polygons, time_allocations: list, segment_num):
         # 构建目标函数 inter (jerk)^2
         inte_jerk_square = np.array([
             [720.0, -1800.0, 1200.0, 0.0, 0.0, -120.0],
